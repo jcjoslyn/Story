@@ -1,21 +1,19 @@
 import RendererMixin from "./Mixins/RendererMixin.js";
-import { compose } from "../utility.js";
+import { compose, createElement } from "../utility.js";
 import { on } from "../publishSubscribe.js";
 import LocationRenderer from "./LocationRenderer.js";
 
 class LocationManager {
-  locationData;
-
-  constructor({ locationParent, locationData }) {
-    this.locationData = locationData;
-
-    const Renderer = RendererMixin(locationParent);
+  constructor(parent) {
+    const Renderer = RendererMixin(
+      parent,
+      createElement({ type: "div", id: "location" })
+    );
 
     compose(this, [Renderer]);
 
     on("storystatechange", (state) => {
-      if (this.locationData[state])
-        this.render(LocationRenderer(this.locationData[state]));
+      if (state.location) this.render(LocationRenderer(state.location));
     });
   }
 }

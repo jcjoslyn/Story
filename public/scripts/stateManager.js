@@ -27,12 +27,18 @@ export class StateMap {
   }
 
   addLink(source, target, event) {
+    console.log(source, target, event);
     if (!this.links[source]) this.links[source] = {};
     this.links[source][event] = target;
   }
 
-  addLinks(arr) {
-    arr.forEach((link) => this.addLink(link.source, link.target, link.event));
+  addLinks(links) {
+    Array.from(Object.keys(links)).forEach((key) => {
+      const link = links[key];
+      link.forEach((l) => {
+        this.addLink(key, l.target, l.event);
+      });
+    });
   }
 
   addVariable(name, value) {
@@ -45,16 +51,30 @@ export class StateMap {
     this.variables[name] = value;
   }
 
+  getVariable(name) {
+    if (this.variables[name]) return this.variables[name];
+
+    throw new Error(`variable ${name} does not exist`);
+  }
+
   triggerStateEvent(event) {
+    console.log(event);
+    const eventName = this.processEvent(event);
     const links = this.getLinks();
+    console.log(links);
     if (!links) return false;
-    const link = links[event.name];
+    const link = links[eventName];
 
     if (link) {
       this.setNode(link);
       return link;
     }
     return false;
+  }
+
+  processEvent(event) {
+    if (event.name && typeof event.name === "string") return event.name;
+    return event.funct.apply(this);
   }
 }
 

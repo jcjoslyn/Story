@@ -1,13 +1,15 @@
 import { removeAllChildNodes } from "../../utility.js";
 
-const RendererMixin = (parent) => {
+const RendererMixin = (parent, renderElement) => {
+  parent.appendChild(renderElement);
   const scope = {
     render: (renderInstruction, callback) => {
-      removeAllChildNodes(parent);
-      parent.appendChild(renderInstruction);
+      removeAllChildNodes(renderElement);
+      renderElement.appendChild(renderInstruction);
       if (callback) {
+        console.log("calling callback");
         setTimeout(() => {
-          callback.funct(callback.data);
+          callback.funct(callback);
         }, callback.delay);
       }
     },

@@ -1,0 +1,78 @@
+body {
+  background: black;
+}
+#root {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 1240px;
+  height: 720px;
+  overflow: hidden;
+}
+
+#location {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.location-image {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+#character {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+
+.character-wrapper {
+  position: absolute;
+  bottom: 0px;
+}
+
+.right {
+  right: 0px;
+  transform: rotateY(180deg);
+}
+
+#dialogue {
+  position: absolute;
+  width: 90%;
+  height: 40%;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #00000077;
+  z-index: 3;
+}
+
+.dialogue-speaker {
+  position: relative;
+  float: left;
+  width: 100%;
+  margin: 25px 25px 12px 25px;
+}
+
+.dialogue-text {
+  position: relative;
+  float: left;
+  width: 100%;
+  margin: 0px 25px 0px 25px;
+}
+
+.selection-wrapper {
+  position: relative;
+  float: left;
+}
+
+.selection-button {
+  position: relative;
+  float: left;
+  margin: 25px;
+}
